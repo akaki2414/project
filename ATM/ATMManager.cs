@@ -7,21 +7,35 @@ using System.Threading.Tasks;
 
 namespace ATM {
     internal class ATMManager {
-        public static List<Account> accounts = new List<Account>() {
-            new Account() {
-                FirstName = "Krak",
-                LastName = "Khorava",
-                IDNumber = "01951004371",
-                Balance = 99999999
-            },
-            new Account() {
-                FirstName = "Giorgi",
-                LastName = "Lomsadze",
-                IDNumber = "01375690019",
-                Balance = 15
-            }
-        };
+        public static List<Account> accounts = ATMFileManager.GetAccounts();
 
+        public void Signup() {
+            Console.Write("Input your first name: ");
+            var fname = Console.ReadLine();
+            Console.Write("Input your last name: ");
+            var lname = Console.ReadLine();
+            Console.Write("Input your ID Number: ");
+            var id = Console.ReadLine()!.Trim();
+
+            var existingAccount = accounts.FirstOrDefault(a => a.IDNumber == id);
+            if (id.Length != 11 || !int.TryParse(id, out _)) {
+                Console.WriteLine("Invalid ID");
+                return;
+            }
+            if (accounts.Any(a => a.IDNumber == id)) {
+                Console.WriteLine("ID is already in use");
+                return;
+            }
+            var account = new Account() {
+                FirstName = fname,
+                LastName = lname,
+                IDNumber = id,
+                Balance = 0
+            };
+            accounts.Add(account);
+            ATMFileManager.SaveAccounts(accounts);
+
+        }
         public Account? Login() {
             Console.Write("Input your ID number: ");
             var id = Console.ReadLine();
@@ -33,7 +47,6 @@ namespace ATM {
             if (account is null) Console.WriteLine("Couldn't find account");
             return account;
         }
-
         public void CheckBalance(Account account) {
             Console.WriteLine(account.Balance);   
         }
@@ -41,6 +54,7 @@ namespace ATM {
             Console.Write("How much to deposit: ");
             int money = Console.ReadLine()!.GetInt();
             account.Balance += money;
+            ATMFileManager.SaveAccounts(accounts);
             Console.WriteLine("Successfully deposited");
         }
         public void WithdrawMoney(Account account) {
@@ -51,6 +65,7 @@ namespace ATM {
                 return;
             }
             account.Balance -= money;
+            ATMFileManager.SaveAccounts(accounts);
             Console.WriteLine($"Withdrew {money}");
         }
 

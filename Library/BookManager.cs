@@ -89,13 +89,13 @@ namespace Library {
                
             };
             books.Add(book);
+            BookFileManager.SaveBooks(books);
+            
         }
         public void DisplayBooks() {
             foreach (Book book in books) {
                 Console.WriteLine(book);
             }
-        }
-        public void PrintJson() {
         }
         public void Search() {
             Console.Write("Search book name or author: ");

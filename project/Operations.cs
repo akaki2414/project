@@ -14,14 +14,14 @@ namespace project {
         public static int Subtraction(int a, int b) {
             return a - b;
         }
-        public static int Multiplication(int a, int b) {
+        public static decimal Multiplication(decimal a, decimal b) {
             return a * b;
         }
-        public static int Division(int a, int b) {
+        public static decimal Division(decimal a, decimal b) {
             return a / b;
         }
-        public static double Root(int a) {
-            return Math.Sqrt(a);
+        public static double Root(double a, double rootPower = 2) {
+            return Math.Pow(a, 1 / rootPower);
         }
         public static double Pow(int a,int b) {
             return Math.Pow(a, b);

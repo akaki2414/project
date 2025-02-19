@@ -16,7 +16,7 @@ while (x) {
             break;
         }
         catch (FormatException) {
-            Console.Write("Input only numbers\n");
+            Console.Write("Input only numbers: ");
         }
     }
     Console.WriteLine("enter operation");
@@ -29,7 +29,7 @@ while (x) {
             break;
         }
         catch (FormatException) {
-            Console.Write("this operand dont exists\n");
+            Console.Write("This operand doesn't exist\n");
         }
     }
 
@@ -39,17 +39,19 @@ while (x) {
 
     if (Operation != 'V') {
         Console.WriteLine("choose second number");
-        while (true) {
-            try {
-                SecNum = int.Parse(Console.ReadLine());
-                break;
-            }
-            catch (FormatException) {
-                Console.Write("Input only numbers\n");
-            }
-        };
-
-    } 
+    }
+    else {
+        Console.WriteLine("choose root number");
+    }
+     while (true) {
+        try {
+            SecNum = int.Parse(Console.ReadLine());
+            break;
+        }
+        catch (FormatException) {
+            Console.Write("Input only numbers\n");
+        }
+    };
     switch (Operation) {
             case '+':
                 Console.WriteLine($"{FirstNum}{Operation}{SecNum}={Operations.Add(FirstNum, SecNum)}");
@@ -64,10 +66,13 @@ while (x) {
                 Console.WriteLine($"{FirstNum}{Operation}{SecNum}={Operations.Division(FirstNum, SecNum)}");
                 break;
             case 'V':
-                Console.WriteLine($"sqrt{FirstNum}={Operations.Root(FirstNum)}");
+                Console.WriteLine($"{SecNum} root {FirstNum}={Operations.Root(FirstNum,SecNum)}");
                 break;
             case '^':
                 Console.WriteLine($"{FirstNum}{Operation}{SecNum}={Operations.Pow(FirstNum, SecNum)}");
+                break;
+            default:
+
                 break;
         }
 

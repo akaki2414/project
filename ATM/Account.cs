@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ATM {
-    internal class Account {
+    public class Account {
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string IDNumber { get; set; }
